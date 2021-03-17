@@ -1,0 +1,17 @@
+{
+  "name": "emissive_tool_thingy",
+  "version": "1.0.0",
+  "description": "yes",
+  "bin": "index.js",
+  "dependencies": {
+    "image-size": "^0.9.7",
+    "pkg": "^4.4.9",
+    "png-js": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ancientkingg",
+  "license": "ISC"
+}
