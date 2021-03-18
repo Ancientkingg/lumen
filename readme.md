@@ -17,4 +17,4 @@ the colour rgba(255,255,127,255).
 Make sure to save it after editing and run it through the script.
 The script will spit out `output.txt` which contains all the necessary if-statements
 you need to paste into your shader.
-It assumes that `vec4 vtc = vertexColor`.
+It assumes that `vec4 vtc = vertexColor` and that `vec4 color = texture(Sampler0, texCoord0) * vtc * ColorModulator;`.
