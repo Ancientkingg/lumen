@@ -1,7 +1,7 @@
 {
-  "name": "emissive_tool_thingy",
+  "name": "luminescence",
   "version": "1.0.0",
-  "description": "yes",
+  "description": "Hoping to make it easier to create resource packs with emissive textures",
   "bin": "index.js",
   "dependencies": {
     "archiver": "^5.3.0",
