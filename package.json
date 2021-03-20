@@ -4,8 +4,9 @@
   "description": "yes",
   "bin": "index.js",
   "dependencies": {
+    "archiver": "^5.3.0",
     "image-size": "^0.9.7",
-    "pkg": "^4.4.9",
+    "input": "^1.0.1",
     "png-js": "^1.0.0"
   },
   "devDependencies": {},
