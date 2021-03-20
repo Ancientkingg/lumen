@@ -1,8 +1,10 @@
 # Luminescence
 
 ## How to use
-`node index <picture>`\n
-It accepts relative and absolute paths.\n
+`node index <picture>`
+
+It accepts relative and absolute paths.
+
 **Examples:**
 ```
 node index picture
