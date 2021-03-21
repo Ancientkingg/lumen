@@ -27,9 +27,20 @@ if (picture) {
           emissivePixels.y.push(y);
         }
       }
+      let Strips = strips(emissivePixels.x,emissivePixels.y);
+      // console.log(Strips);
+      Strips = column(Strips);
       let content = "";
-      for (i = 0; i < emissivePixels.x.length; i++) {
-        content += `if (x == ${emissivePixels.x[i]} && y == ${emissivePixels.y[i]} ) vtc = vec4(1.0,1.0,1.0,1.0); `;
+      for (i = 0; i < Strips.x.length; i++) {
+        if (Array.isArray(Strips.x[i]) && Array.isArray(Strips.y[i])) {
+          content += `if (x >= ${Strips.x[i][0]} && x <= ${Strips.x[i][1]} && y >= ${Strips.y[i][0]} && y <= ${Strips.y[i][1]}  ) vtc = vec4(1.0,1.0,1.0,1.0); `;
+        } else if (Array.isArray(Strips.x[i]) && !Array.isArray(Strips.y[i])) {
+          content += `if (x >= ${Strips.x[i][0]} && x <= ${Strips.x[i][1]} && y == ${Strips.y[i]} ) vtc = vec4(1.0,1.0,1.0,1.0); `;
+        } else if (!Array.isArray(Strips.x[i]) && Array.isArray(Strips.y[i])) {
+          content += `if ( x == ${Strips.x[i]} && y >= ${Strips.y[i][0]} && y <= ${Strips.y[i][1]} ) vtc = vec4(1.0,1.0,1.0,1.0); `;
+        } else {
+          content += `if ( x == ${Strips.x[i]} && y == ${Strips.y[i]} ) vtc = vec4(1.0,1.0,1.0,1.0); `;
+        }
       }
       outputPrompt((outputType) => {
         if (outputType == "Shader code") {
@@ -92,6 +103,53 @@ if (picture) {
   }
 } else {
   console.log("Please input a picture");
+}
+
+function column(Strips) {
+  let ranges = {x:[],y:[]},
+    rstart,
+    rend;
+  for (i = 0; i < Strips.y.length; i++) {
+    rstart = Strips.y[i];
+    istart = i;
+    rend = rstart;
+    while (Strips.y[i + 1] - Strips.y[i] == 1 && Strips.x[i + 1].toString() == Strips.x[i].toString()) {
+      
+      rend = Strips.y[i + 1]; // increment the index if the numbers sequential and Y is the same
+      i++;
+    }
+    if (rstart == rend) {
+      ranges.y.push(rstart);
+    } else {
+      ranges.y.push([rstart,rend]);
+    }
+    ranges.x.push(Strips.x[i])
+    // ranges.x.push(rstart == rend ? rstart + "" : rstart + "-" + rend);
+  }
+  return ranges;
+}
+
+function strips(arrX,arrY) {
+  let ranges = {x:[],y:[]},
+    rstart,
+    rend;
+  for (i = 0; i < arrX.length; i++) {
+    rstart = arrX[i];
+    istart = i;
+    rend = rstart;
+    while (arrX[i + 1] - arrX[i] == 1 && arrY[i + 1] == arrY[i]) {
+      rend = arrX[i + 1]; // increment the index if the numbers sequential and Y is the same
+      i++;
+    }
+    if (rstart == rend) {
+      ranges.x.push(rstart);
+    } else {
+      ranges.x.push([rstart,rend]);
+    }
+    ranges.y.push(arrY[i])
+    // ranges.x.push(rstart == rend ? rstart + "" : rstart + "-" + rend);
+  }
+  return ranges;
 }
 
 async function outputPrompt(callback) {
