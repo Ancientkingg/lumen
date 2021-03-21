@@ -13,7 +13,7 @@ node index C://folder/picture
 ```
 ## How to colour
 
-I have added the default atlas for 20w11a in the media folder for you to download.
+I have added the default atlas for 21w11a in the media folder for you to download.
 
 First save the atlas you want to use as a picture.
 Secondly you want to colour in the pixels you want to be emissive, with
