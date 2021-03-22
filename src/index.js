@@ -28,7 +28,6 @@ if (picture) {
         }
       }
       let Strips = strips(emissivePixels.x,emissivePixels.y);
-      // console.log(Strips);
       Strips = column(Strips);
       let content = "";
       for (i = 0; i < Strips.x.length; i++) {
@@ -51,6 +50,10 @@ if (picture) {
         } else {
           shaderType((shaderType) => {
             let fsh = `#version 150\n#moj_import <fog.glsl>\nuniform sampler2D Sampler0;uniform vec4 ColorModulator;uniform float FogStart;uniform float FogEnd;uniform vec4 FogColor;in float vertexDistance;in vec4 vertexColor;in vec2 texCoord0;in vec4 normal;out vec4 fragColor;void main() {int x = int(texCoord0.x * ${dimensions.width});int y = int(texCoord0.y * ${dimensions.height});vec4 vtc = vertexColor;${content}vec4 color = texture(Sampler0, texCoord0) * vtc * ColorModulator;fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);}`;
+            if (shaderType == "rendertype_entity_cutout") {
+              content = content.split("vtc = vec4(1.0,1.0,1.0,1.0);").join("flag = true;");
+              fsh = `#version 150\n#moj_import <fog.glsl>\nuniform sampler2D Sampler0;uniform vec4 ColorModulator;uniform float FogStart;uniform float FogEnd;uniform vec4 FogColor;in float vertexDistance;in vec4 vertexColor;in vec4 lightMapColor;in vec4 overlayColor;in vec2 texCoord0;in vec4 normal;out vec4 fragColor;void main() {    int x = int(texCoord0.x * 1024);    int y = int(texCoord0.y * 1024);    vec4 color = texture(Sampler0, texCoord0);    vec4 vtc = vertexColor;    bool flag = false;    ${content}    if (flag) {        vtc = vec4(1.0,1.0,1.0,1.0);        color *= vtc * ColorModulator;        if (color.a < 0.1) {            discard;        }        color.rgb = mix(overlayColor.rgb, color.rgb, overlayColor.a);        fragColor = color, vertexDistance, FogStart, FogEnd, FogColor;    } else {        color *= vtc * ColorModulator;        if (color.a < 0.1) {            discard;        }        color.rgb = mix(overlayColor.rgb, color.rgb, overlayColor.a);        color *= lightMapColor;        fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);    }            }`
+            }
             let packmcmeta =
               '{"pack":{ "pack_format": 7, "description": "§cEmissive Textures by Ancientkingg"}}';
             fs.mkdir(
@@ -176,29 +179,4 @@ async function shaderType(callback) {
       "Please input the shader type to be outputted"
     );
   callback(shaderType);
-}
-
-function getRanges(array) {
-  let ranges = [],
-    rstart,
-    rend;
-  for (i = 0; i < array.length; i++) {
-    rstart = array[i];
-    istart = i;
-    rend = rstart;
-    while (array[i + 1] - array[i] == 1) {
-      rend = array[i + 1]; // increment the index if the numbers sequential
-      i++;
-    }
-    ranges.push(rstart == rend ? rstart + "" : rstart + "-" + rend);
-  }
-  return ranges;
-}
-
-function dedupe(array) {
-  let deduped = [];
-  for (i = 0; i < array.length; i++) {
-    if (array[i] != array[i + 1]) deduped.push(array[i]);
-  }
-  return deduped;
 }

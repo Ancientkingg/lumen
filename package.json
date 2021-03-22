@@ -1,5 +1,5 @@
 {
-  "name": "luminescence",
+  "name": "lumen",
   "version": "1.0.0",
   "description": "Hoping to make it easier to create resource packs with emissive textures",
   "bin": "src/index.js",
