@@ -27,4 +27,7 @@ It assumes that `vec4 vtc = vertexColor` and that `vec4 color = texture(Sampler0
 ## Compiled version
 If you use the compiled version the syntax is practically the same:
 
-```luminescence <picture>```
+```lumen <picture>```
+## Bundled version
+The bundled version does not include the node runtime, hence why that must be installed on the pc
+```node lumen <picture>```
