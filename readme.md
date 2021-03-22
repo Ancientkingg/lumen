@@ -1,15 +1,16 @@
 # Lumen
 
 ## How to use
-`node index <picture>`
+`node src/index <picture>`
 
 It accepts relative and absolute paths.
 
 **Examples:**
 ```
-node index picture
-node index ./picture
-node index C://folder/picture
+node src/index picture
+node src/index media/picture
+node src/index ./picture
+node src/index C://folder/picture
 ```
 ## How to colour
 
