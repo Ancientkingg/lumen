@@ -17,7 +17,7 @@ I have added the default atlas for 21w11a in the media folder for you to downloa
 
 First save the atlas you want to use as a picture.
 Secondly you want to colour in the pixels you want to be emissive, with
-the colour rgba(255,255,127,255) or #ffff7f in hex.
+the colour `rgba(255,255,127,255)` or `#ffff7f` in hex.
 Make sure to save it after editing and run it through the script.
 The script will spit out either `output.txt` which contains all the necessary if-statements
 you need to paste into your shader or a fully-fledged resource pack (*How cool is that!*). Currently the resource pack option only works for blocks that use `rendertype_solid`, but my first priority is to change this :D!
