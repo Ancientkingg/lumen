@@ -30,4 +30,5 @@ If you use the compiled version the syntax is practically the same:
 ```lumen <picture>```
 ## Bundled version
 The bundled version does not include the node runtime, hence why that must be installed on the pc
+
 ```node lumen <picture>```
