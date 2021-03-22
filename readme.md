@@ -1,4 +1,4 @@
-# Luminescence
+# Lumen
 
 ## How to use
 `node index <picture>`
