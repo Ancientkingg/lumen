@@ -1,3 +1,5 @@
+# DO NOT USE: This is outdated, use [this](https://github.com/ShockMicro/VanillaDynamicEmissives) instead.
+
 # Lumen
 
 ## How to use
